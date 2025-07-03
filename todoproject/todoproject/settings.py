@@ -1,3 +1,14 @@
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get secret key and debug from environment variables
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+# ... rest of your settings ...
 """
 Django settings for todoproject project.
 
