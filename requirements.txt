@@ -1,0 +1,16 @@
+Django
+djangorestframework
+Pillow
+Pygments
+
+# Add other common packages as needed:
+# psycopg2          # If using PostgreSQL
+# mysqlclient       # If using MySQL
+# gunicorn          # If deploying with Gunicorn
+# django-cors-headers
+# django-filter
+# requests
+# celery
+# redis
+# channels
+# whitenoise        # For static files in production
