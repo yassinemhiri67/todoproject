@@ -1,65 +1,13 @@
-venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.env
-.DS_Store
-.idea/
-.vscode/
-db.sqlite3
-*.log
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-*.env
-
-# Django
-*.log
+# Django specific
+db.sqlite3      # Your development database file
+media/          # If attachments are user media, this is a common folder name
+attachments/    # Your specific attachments folder
+*.log           # Log files
 *.pot
+*.mo
 *.pyc
-*.pyo
-*.pyd
-db.sqlite3
-media/
-staticfiles/
-local_settings.py
+__pycache__/    # Python bytecode cache
 
-# VSCode
-.vscode/
-
-# MacOS
-.DS_Store
-
-# PyCharm
-.idea/
-
-# Test and coverage
-.coverage
-htmlcov/
-.tox/
-.nox/
-.cache/
-.pytest_cache/
-
-# Pip
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Node (if any frontend)
-node_modules/
-
-# Misc
-*.swp
-*.swo
+# Virtual environment (if you use one, e.g., 'venv' or 'env')
+venv/
+env/
