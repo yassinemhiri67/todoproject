@@ -30,7 +30,6 @@ It is currently public and maintained by [yassinemhiri67](https://github.com/yas
    ```sh
    pip install -r requirements.txt
    ```
-   *(If `requirements.txt` exists)*
 
 4. **Run the project**
    - Project-specific instructions should be added here once available.
