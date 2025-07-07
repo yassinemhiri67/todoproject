@@ -9,8 +9,12 @@ It is currently public and maintained by [yassinemhiri67](https://github.com/yas
 
 ## Features
 
-- Written in Python
-- Ready for open development
+- Django-based web application
+- RESTful API with Django REST Framework
+- Task, Employee, and Snippet management
+- User authentication and permissions
+- Pagination for all list endpoints
+- Filtering (filtrage) for Task, Employee, and Snippet endpoints
 
 ## Getting Started
 
@@ -23,7 +27,7 @@ It is currently public and maintained by [yassinemhiri67](https://github.com/yas
 2. **Set up a virtual environment (recommended)**
    ```sh
    python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   source venv/bin/activate  # On Windows use `venv\\Scripts\\activate`
    ```
 
 3. **Install dependencies**
@@ -31,19 +35,49 @@ It is currently public and maintained by [yassinemhiri67](https://github.com/yas
    pip install -r requirements.txt
    ```
 
+HEAD
 4. **Run the project**
    ```sh
    python manage.py migrate
    python manage.py runserver
    ```
 
+4. **Set up environment variables**
+   - Create a `.env` file in the project root with your secret key and debug setting:
+     ```
+     DJANGO_SECRET_KEY=your-very-secret-key-here
+     DJANGO_DEBUG=True
+     ```
+
+5. **Run migrations**
+   ```sh
+   python manage.py migrate
+   ```
+
+6. **Run the development server**
+   ```sh
+   python manage.py runserver
+   ```
+
+## API Usage
+
+- **Pagination:**
+  - All list endpoints are paginated (default: 10 items per page).
+  - Use `?page=2` to access the next page.
+
+- **Filtering:**
+  - Filter tasks, employees, and snippets using query parameters. Examples:
+    - `/api/tasks/?status=DONE`
+    - `/api/employees/?department=HR`
+    - `/api/snippets/?language=python`
+>>>>>>> 775b106 (add filtering, pagination, update requirements and readme)
+
 ## Project Structure
 
-The repository contains environment and package files, such as:
-- Python virtual environment directories (`venv/`)
-- Django admin and pip scripts (in `venv/lib/python3.11/site-packages/`)
-
-You should add your main application scripts (e.g., `main.py`, `app.py`) and documentation as needed.
+- `todoproject/` – Django project settings
+- `todo/` – Main app (models, views, serializers, migrations)
+- `attachments/` – Uploaded files
+- `requirements.txt` – Python dependencies
 
 ## Contributing
 

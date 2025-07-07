@@ -4,3 +4,4 @@ djangorestframework==3.16.0
 pillow==11.3.0
 Pygments==2.19.2
 sqlparse==0.5.3
+django-filter

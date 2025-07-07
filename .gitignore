@@ -11,3 +11,5 @@ __pycache__/    # Python bytecode cache
 # Virtual environment (if you use one, e.g., 'venv' or 'env')
 venv/
 env/
+db.sqlite3
+.env

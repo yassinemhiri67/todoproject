@@ -32,16 +32,19 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     permission_classes = [IsAdminOrReadOnly]
+    filterset_fields = ['department', 'birth_date', 'name', 'email']
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filterset_fields = ['status', 'employee', 'due_date', 'title']  # Add fields you want to filter by
 
 class SnippetViewSet(viewsets.ModelViewSet):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filterset_fields = ['task', 'language', 'created']
 
 class SnippetHighlight(APIView):
     renderer_classes = [StaticHTMLRenderer]
