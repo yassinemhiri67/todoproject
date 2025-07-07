@@ -32,7 +32,10 @@ It is currently public and maintained by [yassinemhiri67](https://github.com/yas
    ```
 
 4. **Run the project**
-   - Project-specific instructions should be added here once available.
+   ```sh
+   python manage.py migrate
+   python manage.py runserver
+   ```
 
 ## Project Structure
 
