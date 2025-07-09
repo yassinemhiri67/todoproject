@@ -1,7 +1,11 @@
-from django.contrib import admin
-from .models import Employee, Task
+"""Admin configuration for the todo app."""
 
-admin.site.register(Employee)
-admin.site.register(Task)
+from django.contrib import admin
+
+from .models import Employee, Snippet, Task
+
+admin.site.register(Employee)  # Register Employee model
+admin.site.register(Task)      # Register Task model
+admin.site.register(Snippet)   # Register Snippet model
 
 # Register your models here.
