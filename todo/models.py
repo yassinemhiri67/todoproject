@@ -56,6 +56,8 @@ class Task(models.Model):
         default=TASK_STATUS_TODO,
         help_text="Current status of the task."
     )
+    locked_by = models.ForeignKey(Employee, null=True, blank=True, on_delete=models.SET_NULL, related_name='locked_tasks', help_text="Employee who locked this task.")
+    locked_at = models.DateTimeField(null=True, blank=True, help_text="Timestamp when the task was locked.")
 
     def __str__(self):
         """String for representing the Task object."""
@@ -69,6 +71,8 @@ class Snippet(models.Model):
     style = models.CharField(choices=STYLE_CHOICES, default='friendly', max_length=100, help_text="Style for code highlighting.")
     linenos = models.BooleanField(default=False, help_text="Show line numbers in the highlighted code?")
     created = models.DateTimeField(auto_now_add=True, help_text="Snippet creation timestamp.")
+    locked_by = models.ForeignKey(Employee, null=True, blank=True, on_delete=models.SET_NULL, related_name='locked_snippets', help_text="Employee who locked this snippet.")
+    locked_at = models.DateTimeField(null=True, blank=True, help_text="Timestamp when the snippet was locked.")
 
     class Meta:
         ordering = ['created']

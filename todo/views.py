@@ -13,6 +13,8 @@ from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
+from django.utils import timezone
+from rest_framework.decorators import action
 
 from .models import Employee, Snippet, Task
 from .serializers import EmployeeSerializer, SnippetSerializer, TaskSerializer
@@ -52,12 +54,78 @@ class TaskViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filterset_fields = ['status', 'employee', 'due_date', 'title']
 
+    @action(detail=True, methods=['post'])
+    def lock(self, request, pk=None):
+        task = self.get_object()
+        employee = getattr(request.user, 'employee', None)
+        if not employee:
+            return Response({'detail': 'User is not associated with an employee.'}, status=400)
+        if task.locked_by and task.locked_by != employee:
+            return Response({'detail': 'Task is already locked by another user.'}, status=403)
+        task.locked_by = employee
+        task.locked_at = timezone.now()
+        task.save()
+        return Response({'detail': 'Task locked.'})
+
+    @action(detail=True, methods=['post'])
+    def unlock(self, request, pk=None):
+        task = self.get_object()
+        employee = getattr(request.user, 'employee', None)
+        if not employee:
+            return Response({'detail': 'User is not associated with an employee.'}, status=400)
+        if task.locked_by != employee:
+            return Response({'detail': 'You do not own the lock.'}, status=403)
+        task.locked_by = None
+        task.locked_at = None
+        task.save()
+        return Response({'detail': 'Task unlocked.'})
+
+    def update(self, request, *args, **kwargs):
+        task = self.get_object()
+        employee = getattr(request.user, 'employee', None)
+        if task.locked_by and task.locked_by != employee:
+            return Response({'detail': 'Task is locked by another user.'}, status=403)
+        return super().update(request, *args, **kwargs)
+
 class SnippetViewSet(viewsets.ModelViewSet):
     """ViewSet for managing Snippet objects."""
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     filterset_fields = ['task', 'language', 'created']
+
+    @action(detail=True, methods=['post'])
+    def lock(self, request, pk=None):
+        snippet = self.get_object()
+        employee = getattr(request.user, 'employee', None)
+        if not employee:
+            return Response({'detail': 'User is not associated with an employee.'}, status=400)
+        if snippet.locked_by and snippet.locked_by != employee:
+            return Response({'detail': 'Snippet is already locked by another user.'}, status=403)
+        snippet.locked_by = employee
+        snippet.locked_at = timezone.now()
+        snippet.save()
+        return Response({'detail': 'Snippet locked.'})
+
+    @action(detail=True, methods=['post'])
+    def unlock(self, request, pk=None):
+        snippet = self.get_object()
+        employee = getattr(request.user, 'employee', None)
+        if not employee:
+            return Response({'detail': 'User is not associated with an employee.'}, status=400)
+        if snippet.locked_by != employee:
+            return Response({'detail': 'You do not own the lock.'}, status=403)
+        snippet.locked_by = None
+        snippet.locked_at = None
+        snippet.save()
+        return Response({'detail': 'Snippet unlocked.'})
+
+    def update(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        employee = getattr(request.user, 'employee', None)
+        if snippet.locked_by and snippet.locked_by != employee:
+            return Response({'detail': 'Snippet is locked by another user.'}, status=403)
+        return super().update(request, *args, **kwargs)
 
 class SnippetHighlightView(APIView):
     """API view for returning highlighted HTML of a snippet."""
